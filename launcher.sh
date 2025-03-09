@@ -2,14 +2,17 @@
 
 set -e
 
+sudo apt update -y
+sudo apt install -y strongswan strongswan-pki libcharon-extra-plugins iptables-persistent
+
 echo "Killing previous connections"
 sudo ipsec down test || true
 
 echo "Stopping strongSwan..."
 sudo systemctl stop strongswan-starter || true
 echo "Creating dump /etc/ipsec.conf.bak"
-[ -f /etc/ipsec.conf ] && sudo cp /etc/ipsec.conf /etc/ipsec.conf.bak.$(date +%>
-[ -f /etc/ipsec.secrets ] && sudo cp /etc/ipsec.secrets /etc/ipsec.secrets.bak.>
+[ -f /etc/ipsec.conf ] && sudo cp /etc/ipsec.conf /etc/ipsec.conf.bak.$(date +"%Y-%m-%d_%H:%M:%S")
+[ -f /etc/ipsec.secrets ] && sudo cp /etc/ipsec.secrets /etc/ipsec.secrets.bak.$(date +"%Y-%m-%d_%H:%M:%S")
 
 clear
 echo "server IP:"
@@ -43,9 +46,6 @@ sudo bash -c "cat > /etc/ipsec.secrets" <<EOF
 EOF
 
 echo "Updating..."
-sudo systemctl daemon-reload
-clear
-echo "Updating.."
 sudo systemctl daemon-reload
 clear
 echo "Updating."
