@@ -10,9 +10,6 @@ sudo ipsec down test || true
 
 echo "Stopping strongSwan..."
 sudo systemctl stop strongswan-starter || true
-echo "Creating dump /etc/ipsec.conf.bak"
-[ -f /etc/ipsec.conf ] && sudo cp /etc/ipsec.conf /etc/ipsec.conf.bak.$(date +"%Y-%m-%d_%H:%M:%S")
-[ -f /etc/ipsec.secrets ] && sudo cp /etc/ipsec.secrets /etc/ipsec.secrets.bak.$(date +"%Y-%m-%d_%H:%M:%S")
 
 clear
 echo "server IP:"
